@@ -59,14 +59,6 @@ class App extends Component {
       this.contactsArr = filtredArr;
     }
   };
-  componentDidMount() {
-    const localContacts = localStorage.getItem('contacts');
-    const localContactsParsed = JSON.parse(localContacts);
-    this.setState({ contacts: localContactsParsed });
-  }
-  componentDidUpdate() {
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  }
   render() {
     return (
       <div className={css.app}>
@@ -81,6 +73,18 @@ class App extends Component {
         <ContactList contacts={this.contactsArr} onDelete={this.handleDelete} />
       </div>
     );
+  }
+  componentDidMount() {
+    const localContacts = localStorage.getItem('contacties');
+    const localContactsParsed = JSON.parse(localContacts);
+    if (localContactsParsed == null) {
+      return
+    } else {
+      this.setState({ contacts: localContactsParsed })
+    }
+  }
+  componentDidUpdate() {
+    localStorage.setItem('contacties', JSON.stringify(this.state.contacts));
   }
 }
 export { App };
